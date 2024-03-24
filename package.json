@@ -1,0 +1,26 @@
+{
+  "name": "battleship-top",
+  "version": "1.0.0",
+  "description": "Battleship project: A working Battleship game developed from a TDD approach",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "j-watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AV-MMI/battleship-top.git"
+  },
+  "author": "AV-MMI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AV-MMI/battleship-top/issues"
+  },
+  "homepage": "https://github.com/AV-MMI/battleship-top#readme",
+  "devDependencies": {
+    "@babel/core": "^7.24.3",
+    "@babel/preset-env": "^7.24.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
+}
