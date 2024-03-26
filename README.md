@@ -8,7 +8,7 @@
 	- [X] isSunk() method that tells if a ship has sunk according to its length and the number of hits received
 	
 - [ ]  Class Gameboard 
-	 - [ ] 10x10 board arr: 0 and 1
+	 - [X] 10x10 board arr: 0 and 1
 	 - [ ] should be able to place ships at especific coordinates by calling the ship class
 	 - [ ] receiveAttack() that takes a coordinate and determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot. Gameboards should keep track of missed attacks so they can display them properly.
 	 - [ ] Gameboards should be able to report whether or not all of their ships have been sunk.
