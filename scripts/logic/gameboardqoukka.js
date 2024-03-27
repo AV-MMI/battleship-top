@@ -1,22 +1,42 @@
-import { Ship } from './ship.js'
-export { Gameboard }
+
+class Ship {
+    constructor(name, length, vertical=true, coord=[]){
+        this.name = name,
+        this.length = length,
+        this.vertical = vertical,
+        this.coord = coord,
+        this.hits = 0;
+    }
+
+    hit(){
+        if(this.hits < this.length){
+            this.hits++;
+        }
+    }
+
+    isSunk(){
+        if(this.hits == this.length){
+            return true;
+        }
+
+        return false;
+    }
+}
 
 class Gameboard {
     constructor(sq){
         this.board = Array(sq).fill(null).map(() => Array(sq).fill(0));
         this.ships = [
-            new Ship ("Carrier", 5, (Math.random() < 0.5)),
-            new Ship ("Carrier", 4, (Math.random() < 0.5)),
-            new Ship ("Carrier", 3, (Math.random() < 0.5)),
-            new Ship ("Carrier", 3, (Math.random() < 0.5)),
-            new Ship ("Carrier", 2, (Math.random() < 0.5)),
+            new Ship ("Carrier", 3, true,/*(Math.random() < 0.5)*/),
+            new Ship ("Carrier", 3, true,/*(Math.random() < 0.5)*/),
+            //new Ship ("Carrier", 2, true,/*(Math.random() < 0.5)*/),
             //{name: "Battleship", length: 3, vertical: (Math.random() < 0.5), coor: []},
             //{name: "Cruiser", length: 2, vertical: (Math.random() < 0.5), coor: []},
             //{name: "Submarine", length: 2, vertical: (Math.random() < 0.5), coor: []},
             //{name: "Destroyer", length: 1, vertical: (Math.random() < 0.5), coor: []},
         ];
         this.coords = [];
-        this.invalidSquaresAdjList = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [],}
+        this.invalidSquaresAdjList = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: []}
     }
     
     // populates board
@@ -71,16 +91,26 @@ class Gameboard {
 
                     // ship is vertical
                 if(currentShip.vertical){
+
+                    
                     // populate X axis
+                        // top with border
+                    if(x-1 >= 0){
+                        if(y-1 >= 0){
+                            this.invalidSquaresAdjList[x-1].push(y-1);
+                            this.board[x-1][y-1] = 2;
+                        }
+                        if(y+1 <= 9){
+                            this.invalidSquaresAdjList[x-1].push(y+1);
+                            this.board[x-1][y+1] = 2;       
+                        }
+                    }
+
                     for(let i = 0; i < currentShip.length; i++){
                         this.invalidSquaresAdjList[x].push(y);
                         this.board[x][y] = 1;
-                        x++
-                    }
 
-                    //populate surrounding squares
-                    for(let i = 0; i < currentShip.length; i++){
-                        this.invalidSquaresAdjList[x].push(y);
+                        //populate surrounding squares
                         if(y-1 >= 0){
                             this.invalidSquaresAdjList[x].push(y-1);
                             this.board[x][y-1] = 2;
@@ -89,19 +119,44 @@ class Gameboard {
                             this.invalidSquaresAdjList[x].push(y+2);
                             this.board[x][y+1] = 2;
                         }
+
+                        x++
                     }
+                    //populate surrounding squares
+                        // bottom with borders
+                        if(x >= 0){
+                            if(y-1 >= 0){
+                                this.invalidSquaresAdjList[x].push(y-1);
+                                this.board[x+1][y-1] = 2;
+                            }
+                            if(y+1 <= 9){
+                                this.invalidSquaresAdjList[x].push(y+1);
+                                this.board[x+1][y+1] = 2;           
+                            }
+                        }
+
                 } 
                     // ship is horizontal
                 else {
-                    // populate X axis
+                    // populate Y axis
                     for(let i = 0; i < currentShip.length; i++){
                         this.invalidSquaresAdjList[x].push(y);
                         this.board[x][y] = 1;
                         y++
+
+                        //populate surrounding squares
+                        if(x-1 >= 0){
+                            this.invalidSquaresAdjList[x].push(x-1);
+                            this.board[x-1][y] = 2;
+                        }
+                        if(x+1 <= 9){
+                            this.invalidSquaresAdjList[x].push(x+1);
+                            this.board[x+1][y] = 2;
+                        }
                     }
 
                     //populate surrounding squares
-                    for(let i = 0; i < currentShip.length; i++){
+                    /*for(let i = 0; i < currentShip.length; i++){
                         this.invalidSquaresAdjList[x].push(y);
                         if(x-1 >= 0){
                             this.invalidSquaresAdjList[x].push(y-1);
@@ -111,7 +166,7 @@ class Gameboard {
                             this.invalidSquaresAdjList[x].push(y+2);
                             this.board[x+1][y] = 2;
                         }
-                    }
+                    }*/
 
                 }
             } while( shipsQueue.length > 0)
@@ -142,4 +197,7 @@ class Gameboard {
 
 let pops = new Gameboard(10);
 
-console.log(pops.populateBoard(), pops.coord, 'bebe')
+console.log(pops.populateBoard(), pops.board, 'bebe')
+
+let board = pops.board;
+console.log(board)                          

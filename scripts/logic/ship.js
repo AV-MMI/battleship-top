@@ -1,11 +1,11 @@
 export { Ship }
 
 class Ship {
-    constructor(name, length, vertical=true, coor=[]){
+    constructor(name, length, vertical=true, coord=[]){
         this.name = name,
         this.length = length,
         this.vertical = vertical,
-        this.coor = coor,
+        this.coord = coord,
         this.hits = 0;
     }
 
