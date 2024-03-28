@@ -10,8 +10,8 @@ test('Gameboard has a board', () => {
     expect(typeof newGameboard).toEqual('object')
 })
 
-test('Gameboard contains a populateBoard method', () => {
-    expect(typeof newGameboard.populateBoard).toEqual('function')
+test('Gameboard contains a generateValidCoord method', () => {
+    expect(typeof newGameboard.generateValidCoord).toEqual('function')
 })
 
 /*

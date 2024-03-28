@@ -23,3 +23,7 @@ test('Contains isSunk method', () => {
     expect( typeof ship1.isSunk ).toBe( "function" )
 } )
 
+test('Contains placeShip method', () => {
+    expect( typeof ship1.placeShip).toBe( "function" );
+})
+
