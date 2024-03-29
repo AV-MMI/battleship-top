@@ -1,12 +1,12 @@
-import { Gameboard } from "./gameboard";    
+import { Gameboard } from "./gameboard.js";    
 export { Ship }
 
 class Ship {
-    constructor(name, length, vertical=true){
+    constructor(name, length, vertical=true, coord=[]){
         this.name = name,
         this.length = length,
         this.vertical = vertical,
-        this.coord = [],
+        this.coord = coord,
         this.hits = 0;
     }
 
@@ -25,10 +25,12 @@ class Ship {
     }
 
     placeShip(board){
-        this.coord = board.generateValidCoord(this);
+        if(this.coord.length !== 2){
+            this.coord = board.generateValidCoord(this);
+        }
+
         board.ships.push(this);
         let [x, y] = [...this.coord]
-
         if(this.vertical){
             // populate X axis
             for(let i = 0; i < this.length; i++){
@@ -75,7 +77,7 @@ class Ship {
         else {
             // populate Y axis
             for(let i = 0; i < this.length; i++){
-                board.board[x][y] = 1;
+                board.board[x][y] = 1;              
                 y++
             }
 
